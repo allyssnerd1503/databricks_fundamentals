@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: cantu_postgres
+    environment:
+      POSTGRES_DB: cantu
+      POSTGRES_USER: cantu
+      POSTGRES_PASSWORD: cantu
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cantu -d cantu"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: cantu_pipeline
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: cantu
+      POSTGRES_USER: cantu
+      POSTGRES_PASSWORD: cantu
+    volumes:
+      - ./doc:/app/doc:ro
+      - ./output:/app/output
+    command: ["python", "-m", "cantu_abandoned_carts.cli", "run", "--data-dir", "doc", "--output-dir", "output"]
+
+volumes:
+  postgres_data:

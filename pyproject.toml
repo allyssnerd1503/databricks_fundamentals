@@ -1,0 +1,25 @@
+[project]
+name = "cantu-abandoned-carts"
+version = "0.2.0"
+description = "Projeto de engenharia de dados para analise de carrinhos abandonados da CantuStore com PostgreSQL e PySpark."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2.0",
+    "psycopg[binary]>=3.2.0",
+    "pyarrow>=16.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+spark = [
+    "pyspark>=3.5.0",
+]
+
+[project.scripts]
+cantu-carts = "cantu_abandoned_carts.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
