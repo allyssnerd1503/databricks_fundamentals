@@ -1,6 +1,6 @@
-# CantuStore - Carrinhos Abandonados
+Carrinhos Abandonados
 
-Projeto Python de engenharia de dados para a prova da CantuStore, com duas formas de execucao:
+Projeto Python de engenharia de dados, com duas formas de execucao:
 
 - PostgreSQL local via Docker, util para validar a modelagem SQL.
 - PySpark no Databricks, util para rodar o processamento distribuido nos arquivos CSV/Parquet.
